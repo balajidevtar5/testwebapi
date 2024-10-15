@@ -1,7 +1,7 @@
 
 
 import React, { useState } from "react";
-import "./styles.css";
+import "./index.css";
 
 const App = () => {
   const [otpcode, setOtpcode] = useState("");
@@ -16,10 +16,13 @@ const App = () => {
       })
       .then((otp) => {
         setOtpcode(otp.code);
+        console.log("otp")
         ac.abort();
       })
       .catch((err) => {
         ac.abort();
+        console.log("otp",err)
+
       });
   }
 
