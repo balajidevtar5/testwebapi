@@ -34,6 +34,7 @@
   allow="publickey-credentials-create 'self' https://a.auth.provider.com https://b.auth.provider.com">
 </iframe>
 <script>
+   const ac = new AbortController();
   navigator.credentials
   .get({
     otp: { transport: ["sms"] },
