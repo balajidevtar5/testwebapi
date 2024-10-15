@@ -6,7 +6,7 @@ import "./index.css";
 const App = () => {
   const [otpCode, setOtpCode] = useState("");
   const [status, setStatus] = useState("Waiting for OTP...");
-
+  const [otp, setOtp] = useState('123456'); 
   useEffect(() => {
     if ("OTPCredential" in window) {
       const ac = new AbortController();
@@ -43,11 +43,27 @@ const App = () => {
       setStatus("OTP autofill is not supported in this browser");
     }
   }, []);
+
+
+
+   const copyToClipboard = () => {
+    // Create a temporary textarea element to hold the OTP value
+    const tempInput = document.createElement('textarea');
+    tempInput.value = otp;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    // Copy the value to the clipboard
+    document.execCommand('copy');
+    // Remove the temporary textarea element
+    document.body.removeChild(tempInput);
+    alert('OTP copied to clipboard!');
+  };
   return (
     <div className="App">
       <h1>Web OTP example</h1>
       <h2>Your OTP is: {otpCode}</h2>
       <p>Status: {status}</p>
+      <button onClick={copyToClipboard}>Copy OTP</button>
       <br />
       <br />
       <h3>
