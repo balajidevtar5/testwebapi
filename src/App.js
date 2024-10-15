@@ -92,7 +92,6 @@ const App = () => {
  main();
 }
 
-useEffect(() => {
   useEffect(() => {
     autoReadSMS((otp) => {
       console.log('Received OTP:', otp);
@@ -100,7 +99,6 @@ useEffect(() => {
       // setOtp(otp); // Assuming you have a state for OTP
     });
   }, []);
-}, [])
 
   return (
     <div className="App">
