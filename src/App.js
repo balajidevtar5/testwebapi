@@ -67,12 +67,15 @@ const App = () => {
  }, 1 * 60 * 1000);
  async function main() {
    if ('OTPCredential' in window) {
+
+    console.log("OTPCredential");
       try {
          if (navigator.credentials) {
             try {
                await navigator.credentials
                .get({ abort: signal, otp:{ transport: ['sms']}})
                .then(content => {
+                console.log("content",content);
                  if (content && content.code) {
                    cb(content.code);
                  }
