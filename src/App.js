@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 
 const App = () => {
-  const [otpCode, setOtpCode] = useState("");
-  const [status, setStatus] = useState("Waiting for OTP...");
+  // const [otpCode, setOtpCode] = useState("");
+  // const [status, setStatus] = useState("Waiting for OTP...");
   // useEffect(() => {
   //   if ("OTPCredential" in window) {
   //     const ac = new AbortController();
@@ -103,8 +103,8 @@ const App = () => {
   return (
     <div className="App">
       <h1>Web OTP example</h1>
-      <h2>Your OTP is: {otpCode}</h2>
-      <p>Status: {status}</p>
+      {/* <h2>Your OTP is: {otpCode}</h2>
+      <p>Status: {status}</p> */}
       {/* <button onClick={copyToClipboard}>Copy OTP</button> */}
       <br />
       <br />
