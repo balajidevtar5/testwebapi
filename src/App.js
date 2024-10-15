@@ -4,28 +4,38 @@ import React, { useState } from "react";
 import "./index.css";
 
 const App = () => {
-  const [otpcode, setOtpcode] = useState("");
+  const [otpcode, setOtpCode] = useState("");
 
-  if ("OTPCredential" in window) {
-    const ac = new AbortController();
-   console.log("otp crediatial granted");
-    navigator.credentials
-      .get({
-        otp: { transport: ["sms"] },
-        signal: ac.signal
-      })
-      .then((otp) => {
-        setOtpcode(otp.code);
-        console.log("otp")
+  useEffect(() => {
+    if ("OTPCredential" in window) {
+      const ac = new AbortController();
+      console.log("OTP Credential granted");
+
+      navigator.credentials
+        .get({
+          otp: { transport: ["sms"] },
+          signal: ac.signal,
+        })
+        .then((otp) => {
+          if (otp && 'code' in otp) {
+            setOtpCode(otp.code);
+            console.log("OTP received:", otp.code);
+          } else {
+            console.log("No OTP received or invalid format.");
+          }
+        })
+        .catch((err) => {
+          console.error("Error retrieving OTP:", err);
+        });
+
+      // Optional: Cleanup in case of component unmount
+      return () => {
         ac.abort();
-      })
-      .catch((err) => {
-        ac.abort();
-        console.log("otp",err)
-
-      });
-  }
-
+      };
+    } else {
+      console.log("OTPCredential is not supported in this browser");
+    }
+  }, []);
   return (
     <div className="App">
       <h1>Web OTP example</h1>
