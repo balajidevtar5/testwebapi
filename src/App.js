@@ -1,33 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
-import { useState, useEffect } from "react";
-function App() {
-  const [otp, setOtp] = useState("");
-  useEffect(() => {
-    let ac = new AbortController();
-    setTimeout(() => {
-      // abort after 10 minutes
-      ac.abort();
-    }, 10 * 60 * 1000);
+
+
+import React, { useState } from "react";
+import "./styles.css";
+
+const App = () => {
+  const [otpcode, setOtpcode] = useState("");
+
+  if ("OTPCredential" in window) {
+    const ac = new AbortController();
+
     navigator.credentials
       .get({
         otp: { transport: ["sms"] },
         signal: ac.signal
       })
-      .then(otp => {
-        setOtp(otp.code);
-        //console.log("your otp code is", otp.code);
+      .then((otp) => {
+        setOtpcode(otp.code);
+        ac.abort();
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        ac.abort();
       });
-  });
+  }
+
   return (
-    <div>
-    <h1>Web Otp Example Code</h1>
-    <input type="text" inputmode="numeric" name="one-time-code" value={otp} />
-  </div>
+    <div className="App">
+      <h1>Web OTP example</h1>
+      <h2>Your OTP is: {otpcode}</h2>
+      <br />
+      <br />
+      <h3>
+        Send below message from another phone <br /> while chrome is active on
+        your mobile screen
+      </h3>
+      <br />
+      <br />
+      <h3 className="msg">
+        <pre>
+          Your test code is: 555444
+          <br />
+          <br />
+          @csb-jsfh2.netlify.app #555444
+        </pre>
+      </h3>
+    </div>
   );
-}
+};
 
 export default App;
