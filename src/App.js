@@ -17,6 +17,7 @@ const App = () => {
           signal: ac.signal,
         })
         .then((otp) => {
+          console.log("OTP received:", otp.code);
           if (otp && 'code' in otp) {
             setOtpCode(otp.code);
             console.log("OTP received:", otp.code);
