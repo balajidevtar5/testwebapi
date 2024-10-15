@@ -4,43 +4,50 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 
 const App = () => {
-  const [otpcode, setOtpCode] = useState("");
+  const [otpCode, setOtpCode] = useState("");
+  const [status, setStatus] = useState("Waiting for OTP...");
 
   useEffect(() => {
     if ("OTPCredential" in window) {
       const ac = new AbortController();
-      console.log("OTP Credential granted");
-    debugger
+      console.log("OTP Credential API is supported.");
+
       navigator.credentials
         .get({
           otp: { transport: ["sms"] },
           signal: ac.signal,
         })
         .then((otp) => {
-          console.log("OTP received:", otp.code);
+          console.log("Credential received:", otp);
           if (otp && 'code' in otp) {
             setOtpCode(otp.code);
-            console.log("OTP received:", otp.code);
+            setStatus("OTP received and autofilled successfully!");
+            console.log("OTP code received:", otp.code);
           } else {
+            setStatus("No OTP received or incorrect format.");
             console.log("No OTP received or invalid format.");
           }
         })
         .catch((err) => {
           console.error("Error retrieving OTP:", err);
+          setStatus(`Error retrieving OTP: ${err.message}`);
         });
 
-      // Optional: Cleanup in case of component unmount
+      // Optional cleanup if the component unmounts
       return () => {
+        console.log("Aborting OTP retrieval");
         ac.abort();
       };
     } else {
       console.log("OTPCredential is not supported in this browser");
+      setStatus("OTP autofill is not supported in this browser");
     }
   }, []);
   return (
     <div className="App">
       <h1>Web OTP example</h1>
       <h2>Your OTP is: {otpcode}</h2>
+      <p>Status: {status}</p>
       <br />
       <br />
       <h3>
