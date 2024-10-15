@@ -10,7 +10,7 @@ const App = () => {
     if ("OTPCredential" in window) {
       const ac = new AbortController();
       console.log("OTP Credential granted");
-
+    debugger
       navigator.credentials
         .get({
           otp: { transport: ["sms"] },
