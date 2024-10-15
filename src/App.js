@@ -46,7 +46,7 @@ const App = () => {
   return (
     <div className="App">
       <h1>Web OTP example</h1>
-      <h2>Your OTP is: {otpcode}</h2>
+      <h2>Your OTP is: {otpCode}</h2>
       <p>Status: {status}</p>
       <br />
       <br />
