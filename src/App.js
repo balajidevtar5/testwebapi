@@ -95,13 +95,13 @@ const App = () => {
  main();
 }
 
-  useEffect(() => {
-    autoReadSMS((otp) => {
-      console.log('Received OTP:', otp);
-      // You can now use the OTP, for example, set it in a state or auto-fill an input field
-      // setOtp(otp); // Assuming you have a state for OTP
-    });
-  }, []);
+  // useEffect(() => {
+  //   autoReadSMS((otp) => {
+  //     console.log('Received OTP:', otp);
+  //     // You can now use the OTP, for example, set it in a state or auto-fill an input field
+  //     // setOtp(otp); // Assuming you have a state for OTP
+  //   });
+  // }, []);
 
   const copyToClipboard = () =>{
     autoReadSMS((otp) => {
