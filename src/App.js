@@ -103,12 +103,20 @@ const App = () => {
     });
   }, []);
 
+  const copyToClipboard = () =>{
+    autoReadSMS((otp) => {
+      console.log('Received OTP:', otp);
+      // You can now use the OTP, for example, set it in a state or auto-fill an input field
+      // setOtp(otp); // Assuming you have a state for OTP
+    });
+  } 
+
   return (
     <div className="App">
       <h1>Web OTP example</h1>
       {/* <h2>Your OTP is: {otpCode}</h2>
       <p>Status: {status}</p> */}
-      {/* <button onClick={copyToClipboard}>Copy OTP</button> */}
+      <button onClick={copyToClipboard}>Copy OTP</button>
       <br />
       <br />
       <h3>
